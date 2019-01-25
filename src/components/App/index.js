@@ -83,7 +83,7 @@ class App extends React.Component{
                      <div>
                         <NavBar/>
                        <HotelList 
-                        hotel={hdetails} 
+                        hotel={hdetails}
                         history={props.history}/>
                      </div>
                   )
@@ -95,7 +95,6 @@ class App extends React.Component{
                <Redirect to="/home"/>
             </Switch> 
          </Router>
-         //3<Incrementor/>
       );
    }
 }

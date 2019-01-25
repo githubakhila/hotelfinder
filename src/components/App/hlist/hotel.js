@@ -19,8 +19,8 @@ const Column=styled.div`
     float:right;
 `;
 
-
-
+// import { browserHistory } from 'react-router';
+import {withRouter} from 'react-router-dom';
 class Hotel extends React.Component{
 
     constructor(props){
@@ -31,6 +31,10 @@ class Hotel extends React.Component{
 
     onViewClick(){
         console.log("Hai")
+        //const path = `details`
+        // browserHistory.push(path)
+        this.props.history.push(`/details`)
+      
     }
     
     render(){
