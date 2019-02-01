@@ -25,29 +25,57 @@ class Hotel extends React.Component{
 
     constructor(props){
         super(props)
+         this.state = {
+         data:[]
+        }
         this.onViewClick=this.onViewClick.bind(this)
-
     }
+
+    
+componentDidMount(){
+
+    const url = "http://localhost:9000/hotels"; 
+    let headers = new Headers();
+
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+
+    headers.append('Access-Control-Allow-Origin', url);
+    headers.append('Access-Control-Allow-Credentials', 'true');
+
+    headers.append('GET', 'POST');
+
+    fetch(url, {
+        headers: headers,
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(contents => {console.log("in fetch: "+ contents);
+                        this.setState ({
+                        data : contents})
+         })
+    .catch(() => console.log("Can’t access " + url + " response. "))
+   
+  }
 
     onViewClick(){
         console.log("Hai")
-        //const path = `details`
-        // browserHistory.push(path)
         this.props.history.push(`/details`)
-      
+        console.log(this.state.data)
     }
     
     render(){
         return(
             <div><br></br>
-                <H>
-                    <Column><Button onClick={this.onViewClick}>view</Button></Column>
-                    <span>{this.props.name}</span><br></br>
-                    <span>{this.props.location}</span><br></br>
-                    <span>{this.props.price}</span><br></br>
-                </H>
-            </div>
+                    <H>
+                        <Column><Button onClick={this.onViewClick}>view</Button></Column>
+                        <span>{this.props.name}</span><br></br>
+                        <span>{this.props.location}</span><br></br>
+                        <span>{this.props.price}</span><br></br>  
+                    </H>
+                </div>
         )
-    }
+    }   
 }
+
 export default Hotel;
