@@ -19,62 +19,39 @@ import {
 // const tableHeaders = ['Id','Name','Location','Price'];
 
 class App extends React.Component{
-   
-//    state={
-//       tableValues : []
-//    }
+   constructor(props){
+      super(props)
+       this.state = {
+       data:[]
+      }
+   }
 
-//    constructor(prop){
-//       super(prop);
-//       this.createRecord=this.createRecord.bind(this);
-//    }
+      componentDidMount(){
 
-//    fetchList(){
-//       let self=this;
-//       const request=new Request('/heroes',{method: 'GET', headers: {"Content-Type":"application/json"}})
-//       fetch(request)
-//       .then(res => res.json())
-//       .then(function(data){
-//          self.setState({'tableValues':data});
+         const url = "http://localhost:9000/hotels"; 
+         let headers = new Headers();
+     
+         headers.append('Content-Type', 'application/json');
+         headers.append('Accept', 'application/json');
+     
+         headers.append('Access-Control-Allow-Origin', url);
+         headers.append('Access-Control-Allow-Credentials', 'true');
+     
+         headers.append('GET', 'POST');
+     
+         fetch(url, {
+             headers: headers,
+             method: 'GET'
+         })
+         .then(response => response.json())
+         .then(contents => {console.log("in fetch: "+ contents);
+                             this.setState ({
+                             data : contents})
+              })
+         .catch(() => console.log("Can’t access " + url + " response. "))
+        
+     }
 
-//       }
-//       )
-
-//    }
-
-//    componentDidMount(){
-//       this.fetchList();
-//    }
-
-//    createRecord(name,alias,team)
-//    {
-//       let self=this;
-//       console.log(name,alias,team)
-//       // const ID=(Math.ceil(Math.random() * 100)).toString();
-//       // const newRecord = [ID,name,alias,team]
-//       // //const newTableValues = this.state.tableValues.map(val => val)
-//       // const newTableValues = [...this.state.tableValues]
-//       // newTableValues.push(newRecord)
-//       // this.setState({tableValues: newTableValues})
-//       var body = {
-//          name: name,
-//          alias: alias,
-//          team: team
-//       };
-//       var request=new Request('/heroes',{
-//          method: 'POST', 
-//          body: JSON.stringify(body),
-//          headers: {"Content-Type":"application/json"}
-//       })
-//       fetch(request)
-//       .then(function(){
-//          self.fetchList()
-//       })
-
-//    }
-
-
-  
    render(){
       return(
          <Router>
@@ -84,7 +61,7 @@ class App extends React.Component{
                      <div>
                         <NavBar/>
                        <HotelList 
-                        hotel={hdetails}
+                        hotel={this.state.data}
                         history={props.history}/>
                      </div>
                   )
@@ -99,11 +76,6 @@ class App extends React.Component{
       );
    }
 }
-const hdetails = [
-   {id:1,name: "Peerless Inn",location:"Hyderabad",price:"5000"},
-   {id:2,name: "Taj",location:"Hyderabad",price:"6000"},
-   {id:3,name: "ITC Kakathiya",location:"Hyderabad",price:"10000"},
-]
 
 
 
