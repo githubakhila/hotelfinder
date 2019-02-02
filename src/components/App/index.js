@@ -1,5 +1,6 @@
 import React from "react";
 import HotelList from "./hlist/index";
+import ViewHotel from "./viewhotel/index";
 import NavBar from "./navbar/index";
 
 import styled from "styled-components";
@@ -60,16 +61,38 @@ class App extends React.Component{
                   return(
                      <div>
                         <NavBar/>
-                       <HotelList 
+                        <HotelList 
                         hotel={this.state.data}
                         history={props.history}/>
                      </div>
                   )
                }}/>
-               <Route exact path="/details" >
-                <h1> Details Page</h1>
-                  </Route>
-                  
+               <Route exact path="/viewhotel/:id"  render={(props) => {
+                  const hid = props.match.params.id
+                  const hdata=this.state.data[hid]
+                  var arr = [];
+                  for (var key in hdata) {
+                     arr.push(hdata[key]);
+                  }
+                  console.log(arr)
+                  const newRecord = {
+                     name: arr[1],
+                     location: arr[2],
+                     price: arr[3]
+                  }
+            
+                  return(
+                     <div>
+                        <NavBar/>
+                        <ViewHotel
+                           name  = {newRecord.name} 
+                           location = {newRecord.location} 
+                           price  = {newRecord.price}
+                           history={props.history}
+                         />
+                     </div>
+                  )
+               }}/>
                <Redirect to="/home"/>
             </Switch> 
          </Router>

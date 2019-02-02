@@ -1,4 +1,6 @@
 import React from 'react';
+import ViewHotel from "../viewhotel/index";
+
 import styled from "styled-components";
 const H = styled.div`
   padding: 4em;
@@ -20,20 +22,30 @@ const Column=styled.div`
 `;
 
 import {withRouter} from 'react-router-dom';
+import View from '../view';
 class Hotel extends React.Component{
 
     constructor(props){
         super(props)
-        this.onViewClick=this.onViewClick.bind(this)
+       this.onViewClick=this.onViewClick.bind(this)
     }
 
 
-onViewClick(){
-        console.log("Hai")
-        this.props.history.push(`/details`)
-        console.log(this.props.name)
-        {this.props.name}
+// onViewClick(id){
+//         console.log("Hai")
+//         this.props.history.push(`/viewhotel/${id}`)
+        
+//         console.log(this.props.name)
+//         {this.props.name}
        
+// }
+onViewClick(){
+    console.log(this.props.id)
+    const ID = this.props.id
+    {<ViewHotel name={this.props.name} loaction={this.props.location} price={this.props.price}/>}
+
+    this.props.onViewClick(ID)
+   
 }
 
 render(){
